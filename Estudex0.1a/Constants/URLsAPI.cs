@@ -6,9 +6,9 @@ namespace Estudex0._1a.Constants
 {
     public class URLsAPI
     {
-        //private const string BaseUrl = "apiestudex-b0angcajf4fdgugt.eastus2-01.azurewebsites.net";
+        private const string BaseUrl = "https://estudex-appapi.azurewebsites.net";
         //private const string BaseUrl = "http://10.0.2.2:8080";
-        private const string BaseUrl = "http://localhost:8080";
+        // const string BaseUrl = "http://localhost:8080";
 
         public const string Autenticar = $"{Utilizadores}/autenticar";
         public const string Registrar = $"{Utilizadores}/registrar";
