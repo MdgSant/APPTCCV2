@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.ProfessorViews.AtividadeView"
+             Title="Atividades"
+             BackgroundColor="#1a1a2e">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="16">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="☰ Minhas Atividades"
+                   FontSize="24" FontAttributes="Bold" TextColor="#c084fc" />
+            <BoxView HeightRequest="1" BackgroundColor="#3d3b6e" Margin="0,8,0,0" />
+        </VerticalStackLayout>
+
+        <!-- Card Total -->
+        <Frame Grid.Row="1" BackgroundColor="#2d2b55" CornerRadius="14"
+               Padding="16" BorderColor="#3d3b6e">
+            <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                <Frame BackgroundColor="#3d2b6e" CornerRadius="10"
+                       Padding="12" BorderColor="Transparent" WidthRequest="48" HeightRequest="48">
+                    <Label Text="📋" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Frame>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                    <Label Text="Total de Atividades" FontSize="13" TextColor="#a0a0c0" />
+                    <Label Text="{Binding TotalAtividades}" FontSize="28"
+                           FontAttributes="Bold" TextColor="#c084fc" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Frame>
+
+        <!-- Lista -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Atividades}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnAtividadeSelecionada">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#2d2b55" CornerRadius="14"
+                           Padding="16" BorderColor="#3d3b6e">
+                        <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+
+                            <!-- Título + Badge Dificuldade -->
+                            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="{Binding Titulo}"
+                                       FontSize="16" FontAttributes="Bold"
+                                       TextColor="#c084fc" />
+                                <Frame Grid.Column="1" CornerRadius="8"
+                                       Padding="8,4" BorderColor="Transparent"
+                                       BackgroundColor="#1a4a1a">
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
+                                            <Setter Property="BackgroundColor" Value="#1a3a1a" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
+                                            <Setter Property="BackgroundColor" Value="#3a2a0a" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
+                                            <Setter Property="BackgroundColor" Value="#3a0a0a" />
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                    <Label Text="{Binding NivelDificuldade.Nome}" FontSize="12"
+                                           TextColor="#4ade80">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
+                                                <Setter Property="TextColor" Value="#4ade80" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
+                                                <Setter Property="TextColor" Value="#f59e0b" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
+                                                <Setter Property="TextColor" Value="#f87171" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Frame>
+                            </Grid>
+
+                            <BoxView Grid.Row="1" HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+
+                            <!-- Pontos + Data -->
+                            <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="{Binding PontuacaoMaxima, StringFormat='⭐ {0} pontos'}"
+                                       FontSize="13" TextColor="#e0e0ff" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding DataCriacao, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                                       FontSize="13" TextColor="#a0a0c0" />
+                            </Grid>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- ✅ Footer com paginação -->
+            <CollectionView.Footer>
+                <VerticalStackLayout Padding="0,16">
+                    <Button Text="Carregar mais"
+                            BackgroundColor="Transparent"
+                            BorderColor="#3d3b6e"
+                            BorderWidth="1"
+                            TextColor="#c084fc"
+                            CornerRadius="10"
+                            FontSize="14"
+                            HeightRequest="44"
+                            Command="{Binding CarregarMaisCommand}"
+                            IsVisible="{Binding TemMaisPaginas}" />
+                    <ActivityIndicator Color="#7c3aed"
+                                       IsRunning="{Binding CarregandoMais}"
+                                       IsVisible="{Binding CarregandoMais}"
+                                       Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </CollectionView.Footer>
+
+        </CollectionView>
+
+        <!-- Botão Nova Atividade -->
+        <Button Grid.Row="3"
+                Text="+ Nova Atividade"
+                BackgroundColor="#7c3aed"
+                TextColor="White"
+                CornerRadius="12"
+                FontSize="15"
+                FontAttributes="Bold"
+                HeightRequest="52"
+                Clicked="OnNovaAtividadeClicked" />
+
+    </Grid>
+</ContentPage>

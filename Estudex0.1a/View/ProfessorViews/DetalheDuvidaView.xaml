@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.ProfessorViews.DetalheDuvidaProfessorView"
+             Title="Detalhe da Dúvida"
+             BackgroundColor="#0d0d14">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <!-- Header -->
+            <HorizontalStackLayout Spacing="12">
+                <Frame BackgroundColor="#7c3aed" CornerRadius="20" Padding="0"
+                       WidthRequest="40" HeightRequest="40" HasShadow="False">
+                    <Label Text="?" FontSize="18" FontAttributes="Bold"
+                           TextColor="White" HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Frame>
+                <Label Text="Detalhe da Dúvida" FontSize="24" FontAttributes="Bold"
+                       TextColor="#c084fc" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <BoxView HeightRequest="1" BackgroundColor="#2a2a3d" />
+
+            <!-- Card da dúvida -->
+            <Frame BackgroundColor="#1a1a2e" CornerRadius="18"
+                   Padding="20" BorderColor="#2a2a3d">
+                <VerticalStackLayout Spacing="12">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="{Binding Duvida.Titulo}"
+                               FontSize="19" FontAttributes="Bold"
+                               TextColor="#c084fc" />
+                        <Frame Grid.Column="1" CornerRadius="10" Padding="10,5"
+                               BorderColor="Transparent" BackgroundColor="#3a2a0a"
+                               VerticalOptions="Start">
+                            <Frame.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding Duvida.StatusDuvida}"
+                                             Value="Respondida">
+                                    <Setter Property="BackgroundColor" Value="#1a3a1a" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <Label Text="{Binding Duvida.StatusDuvida}" FontSize="12"
+                                   FontAttributes="Bold" TextColor="#f59e0b">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Duvida.StatusDuvida}"
+                                                 Value="Respondida">
+                                        <Setter Property="TextColor" Value="#4ade80" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Frame>
+                    </Grid>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="👤" FontSize="12" />
+                        <Label Text="{Binding Duvida.Utilizador.Nome}"
+                               FontSize="13" FontAttributes="Bold" TextColor="#e0e0ff" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="📖" FontSize="12" />
+                        <Label Text="{Binding Duvida.Disciplina.Nome}"
+                               FontSize="13" TextColor="#a0a0c0" />
+                    </HorizontalStackLayout>
+
+                    <BoxView HeightRequest="1" BackgroundColor="#2a2a3d" Margin="0,4" />
+
+                    <Label Text="{Binding Duvida.Descricao}"
+                           FontSize="14" TextColor="#e0e0ff" LineHeight="1.3" />
+
+                    <Label Text="{Binding Duvida.Momento, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                           FontSize="12" TextColor="#7070a0" HorizontalOptions="End" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Header respostas -->
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="💬" FontSize="16" />
+                <Label Text="Respostas" FontSize="17" FontAttributes="Bold" TextColor="#c084fc" />
+            </HorizontalStackLayout>
+
+            <!-- Vazio -->
+            <Frame IsVisible="{Binding SemRespostas}"
+                   BackgroundColor="#1a1a2e" CornerRadius="16"
+                   Padding="28" BorderColor="#2a2a3d">
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="🕐" FontSize="30" HorizontalOptions="Center" />
+                    <Label Text="Esta dúvida ainda não foi respondida."
+                           FontSize="14" TextColor="#a0a0c0" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Lista de respostas -->
+            <CollectionView ItemsSource="{Binding Respostas}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#1a1a2e" CornerRadius="14"
+                               Padding="16" BorderColor="#2a2a3d" Margin="0,0,0,12">
+                            <VerticalStackLayout Spacing="8">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Frame BackgroundColor="#2d2b55" CornerRadius="14" Padding="0"
+                                           WidthRequest="28" HeightRequest="28" HasShadow="False">
+                                        <Label Text="👤" FontSize="13" HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Frame>
+                                    <Label Text="{Binding Utilizador.Nome}"
+                                           FontSize="13" FontAttributes="Bold"
+                                           TextColor="#c084fc" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Label Text="{Binding ConteudoResposta}"
+                                       FontSize="14" TextColor="#e0e0ff" LineHeight="1.3" />
+                                <Label Text="{Binding Momento, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                                       FontSize="11" TextColor="#7070a0"
+                                       HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Campo de resposta (somente se ainda não respondida) -->
+            <Frame BackgroundColor="#1a1a2e" CornerRadius="18"
+                   Padding="18" BorderColor="#2a2a3d"
+                   IsVisible="{Binding PodeResponder}">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="✎" FontSize="15" TextColor="#c084fc" />
+                        <Label Text="Responder dúvida" FontSize="15"
+                               FontAttributes="Bold" TextColor="#c084fc" />
+                    </HorizontalStackLayout>
+
+                    <Frame BackgroundColor="#0d0d14" CornerRadius="14"
+                           Padding="0" BorderColor="#2a2a3d">
+                        <Editor Text="{Binding NovaResposta}"
+                                Placeholder="Digite sua resposta..."
+                                PlaceholderColor="#7070a0"
+                                TextColor="#e0e0ff"
+                                BackgroundColor="Transparent"
+                                HeightRequest="100"
+                                Margin="14,10" />
+                    </Frame>
+
+                    <Button Text="✓ Enviar Resposta"
+                            BackgroundColor="#7c3aed"
+                            TextColor="White"
+                            CornerRadius="14"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            Command="{Binding EnviarRespostaCommand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Aviso de já respondida -->
+            <Frame BackgroundColor="#1a3a1a" CornerRadius="18"
+                   Padding="18" BorderColor="#2a2a3d"
+                   IsVisible="{Binding JaRespondida}">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="✅" FontSize="18" />
+                    <Label Text="Esta dúvida já foi respondida."
+                           FontSize="14" TextColor="#4ade80" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

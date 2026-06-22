@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.Utilizador.CadastroView"
+             Title="Cadastro"
+             BackgroundColor="#1a1a2e">
+    <ScrollView>
+    <Grid RowDefinitions="*" ColumnDefinitions="*,*" Padding="0">
+
+        <!-- Seção Esquerda - Mascote e Mensagem -->
+        <VerticalStackLayout Grid.Column="0" 
+                            BackgroundColor="#1a1a2e"
+                            Padding="40,20"
+                            Spacing="20"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+
+            <Image Source="ornitorrinco.png"
+                x:Name="OrnitImage"
+                WidthRequest="250"
+                HeightRequest="250"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+            <!-- Mensagem de Boas-vindas -->
+            <StackLayout Spacing="5" HorizontalOptions="Center">
+                <Label Text="BEM VINDO(A) AO"
+                       FontSize="16"
+                       TextColor="#a0a0c0"
+                       HorizontalOptions="Center"/>
+                <Label Text="ESTUDEX!"
+                       FontSize="24" 
+                       FontAttributes="Bold"
+                       TextColor="#c084fc"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+
+        </VerticalStackLayout>
+
+        <!-- Seção Direita - Formulário -->
+        <VerticalStackLayout Grid.Column="1"
+                            BackgroundColor="#2a2847"
+                            Padding="40,30"
+                            Spacing="12">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- Título -->
+                    <Label Text="Criar Conta"
+                           FontSize="28" 
+                           FontAttributes="Bold"
+                           TextColor="#c084fc" 
+                           Margin="0,0,0,10"/>
+
+                    <Label Text="Preencha os dados abaixo para se registrar"
+                           FontSize="12"
+                           TextColor="#a0a0c0"
+                           Margin="0,0,0,15"/>
+
+                    <!-- Nome Completo -->
+                    <Label Text="NOME COMPLETO"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10">
+                        <Entry Placeholder="Seu nome completo"
+                               Text="{Binding Nome}"
+                               PlaceholderColor="#6a6a8a"
+                               TextColor="#e0e0ff"
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <!-- CPF -->
+                    <Label Text="CPF"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10">
+                        <Entry Placeholder="000.000.000-00"
+                               Text="{Binding Cpf}"
+                               PlaceholderColor="#6a6a8a"
+                               TextColor="#e0e0ff"
+                               BackgroundColor="Transparent"
+                               Keyboard="Numeric"/>
+                    </Border>
+
+                    <!-- Cidade -->
+                    <Label Text="CIDADE"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10" >
+                        <Entry Placeholder="Sua cidade"
+                               Text="{Binding Cidade}"
+                               PlaceholderColor="#6a6a8a"
+                               TextColor="#e0e0ff"
+                               BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <!-- UF -->
+                    <Label Text="ESTADO (UF)"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10">
+                        <Entry Placeholder="SP"
+                               Text="{Binding Uf}"
+                               PlaceholderColor="#6a6a8a"
+                               TextColor="#e0e0ff"
+                               BackgroundColor="Transparent"
+                               MaxLength="2"/>
+                    </Border>
+
+                    <!-- E-mail -->
+                    <Label Text="E-MAIL"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10" >
+                        <Entry Placeholder="seu@email.com"
+                               Text="{Binding Email}"
+                               PlaceholderColor="#6a6a8a"
+                               TextColor="#e0e0ff"
+                               BackgroundColor="Transparent"
+                               Keyboard="Email"/>
+                    </Border>
+
+                    <!-- Senha -->
+                    <Label Text="SENHA"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,5,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="0">
+                        <Grid ColumnDefinitions="*,45" ColumnSpacing="0">
+                            <Entry Grid.Column="0"
+                                   Placeholder="••••••••"
+                                   Text="{Binding Senha}"
+                                   IsPassword="True"
+                                   PlaceholderColor="#6a6a8a"
+                                   TextColor="#e0e0ff"
+                                   BackgroundColor="Transparent"/>
+                            <Button Grid.Column="1"
+                                    Text="👁"
+                                    Command="{Binding AlternarMostrarSenhaCommand}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="#a0a0c0"
+                                    Padding="0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Tipo de Usuário -->
+                    <Label Text="TIPO DE USUÁRIO"
+                           TextColor="#a0a0c0"
+                           FontSize="10"
+                           Margin="0,10,0,-5"/>
+                    <Border BackgroundColor="#1a1a2e" Stroke="#1a1a2e" StrokeThickness="0" Padding="12,10">
+                        <Picker Title="Selecione o perfil"
+                                SelectedItem="{Binding TipoSelecionado}"
+                                TextColor="#e0e0ff"
+                                BackgroundColor="Transparent">
+                            <Picker.Items>
+                                <x:String>Aluno</x:String>
+                                <x:String>Professor</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
+
+                    <!-- Termos de Serviço -->
+                    <CheckBox IsChecked="{Binding AceitarTermos}" 
+                             Margin="0,10,0,0"/>
+                    <StackLayout Orientation="Horizontal" Spacing="5" Margin="-35,0,0,-10">
+                        <Label Text="Aceito os"
+                               TextColor="#a0a0c0"
+                               FontSize="10"/>
+                        <Label Text="termos de serviço"
+                               TextColor="#c084fc"
+                               FontSize="10"
+                               FontAttributes="Bold"/>
+                    </StackLayout>
+
+                    <!-- Botão Registrar -->
+                    <Button Text="REGISTRAR →"
+                            Command="{Binding RegistrarCommand}"
+                            BackgroundColor="#c084fc"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="48"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Margin="0,20,0,10"/>
+
+                    <!-- Link para Login -->
+                    <StackLayout HorizontalOptions="Center" 
+                                Orientation="Horizontal" 
+                                Spacing="5"
+                                Margin="0,5">
+                        <Label Text="Já tem conta?"
+                               TextColor="#a0a0c0"
+                               FontSize="11"/>
+                        <Label Text="Entrar"
+                               TextColor="#c084fc"
+                               FontSize="11"
+                               FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </VerticalStackLayout>
+
+    </Grid>
+    </ScrollView>
+</ContentPage>

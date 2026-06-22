@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.AlunoViews.ListagemAtividadeView"
+             Title="Responder Atividade"
+             BackgroundColor="#1a1a2e">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="16">
+
+        <!-- Header -->
+        <Frame Grid.Row="0" BackgroundColor="#2d2b55" CornerRadius="14"
+               Padding="16" BorderColor="#7c3aed">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{Binding Atividade.Titulo}"
+                       FontSize="20" FontAttributes="Bold" TextColor="#c084fc" />
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
+                           FontSize="13" TextColor="#a0a0c0" />
+                    <Label Text="•" TextColor="#3d3b6e" />
+                    <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='⭐ {0} pts'}"
+                           FontSize="13" TextColor="#a0a0c0" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Lista de Perguntas -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding PerguntasComResposta}"
+                                 Spacing="16">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#2d2b55" CornerRadius="14"
+                               Padding="16" BorderColor="#3d3b6e">
+                            <VerticalStackLayout Spacing="12">
+
+                                <!-- Enunciado -->
+                                <Label Text="{Binding Pergunta.Enunciado}"
+                                       FontSize="15" FontAttributes="Bold"
+                                       TextColor="#e0e0ff" />
+
+                                <BoxView HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+
+                                <!-- Opções -->
+                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Opcoes}"
+                                                     Spacing="8">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame Padding="12,10" CornerRadius="10"
+                                                   BorderColor="#3d3b6e"
+                                                   BackgroundColor="#1a1a2e">
+                                                <Frame.Triggers>
+                                                    <DataTrigger TargetType="Frame"
+                                                                 Binding="{Binding Selecionada}"
+                                                                 Value="True">
+                                                        <Setter Property="BorderColor" Value="#7c3aed" />
+                                                        <Setter Property="BackgroundColor" Value="#2d1a4e" />
+                                                    </DataTrigger>
+                                                </Frame.Triggers>
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding SelecionarCommand}" />
+                                                </Frame.GestureRecognizers>
+
+                                                <HorizontalStackLayout Spacing="12">
+                                                    <Frame WidthRequest="24" HeightRequest="24"
+                                                           CornerRadius="12" Padding="0"
+                                                           BorderColor="#7c3aed"
+                                                           BackgroundColor="Transparent">
+                                                        <Frame.Triggers>
+                                                            <DataTrigger TargetType="Frame"
+                                                                         Binding="{Binding Selecionada}"
+                                                                         Value="True">
+                                                                <Setter Property="BackgroundColor" Value="#7c3aed" />
+                                                            </DataTrigger>
+                                                        </Frame.Triggers>
+                                                    </Frame>
+                                                    <Label Text="{Binding Opcao.Descricao}"
+                                                           FontSize="14" TextColor="#e0e0ff"
+                                                           VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Botão Enviar -->
+        <Button Grid.Row="2"
+                Text="✓ Enviar Respostas"
+                BackgroundColor="#7c3aed"
+                TextColor="White"
+                CornerRadius="12"
+                FontSize="15"
+                FontAttributes="Bold"
+                HeightRequest="52"
+                Command="{Binding EnviarRespostaCommand}" />
+
+    </Grid>
+</ContentPage>

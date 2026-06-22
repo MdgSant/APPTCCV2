@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.ProfessorViews.InserirPerguntaView"
+             Title="Nova Questão"
+             BackgroundColor="#1a1a2e">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="20">
+
+            <!-- Card Enunciado -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="16"
+                   Padding="20" Margin="0,0,0,16" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="14">
+
+                    <Label Text="⊙ Enunciado da Questão"
+                           FontSize="16" FontAttributes="Bold" TextColor="#c084fc" />
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="📄 Enunciado *" FontSize="13" TextColor="#a0a0c0" />
+                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10"
+                               Padding="8" BorderColor="#7c3aed">
+                            <Editor Text="{Binding Enunciado}"
+                                    FontSize="14"
+                                    TextColor="White"
+                                    PlaceholderColor="#6060a0"
+                                    Placeholder="Digite o enunciado da questão..."
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="100" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Card Alternativas -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="16"
+                   Padding="20" Margin="0,0,0,16" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Header Alternativas -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="☑ Alternativas"
+                               FontSize="16" FontAttributes="Bold" TextColor="#c084fc" />
+                        <Label Grid.Column="1"
+                               Text="{Binding ContadorQuestao}"
+                               FontSize="14" TextColor="#a0a0c0"
+                               VerticalOptions="Center" />
+                    </Grid>
+
+                    <!-- Lista de Opções -->
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Opcoes}" Spacing="10">
+                        <BindableLayout.EmptyView>
+                            <Label Text="Nenhuma alternativa" TextColor="#a0a0c0" />
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="8">
+
+                                    <!-- Radio Correta -->
+                                    <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding Correta}"
+                                          Color="#7c3aed"
+                                          VerticalOptions="Center" >
+                                              <CheckBox.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarcarCorretaCommand}"
+                                                   CommandParameter="{Binding .}" />
+                                        </CheckBox.GestureRecognizers>
+                                    </CheckBox>
+
+                                    <!-- Letra -->
+                                    <Frame Grid.Column="1"
+                                        BackgroundColor="#3d2b6e"
+                                        CornerRadius="6" Padding="6,4"
+                                        BorderColor="Transparent"
+                                        WidthRequest="30" HeightRequest="30">
+                                        <Label Text="{Binding Letra}" FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#c084fc"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Frame>
+
+                                    <!-- Input -->
+                                    <Frame Grid.Column="2"
+                                        BackgroundColor="#1a1a2e" CornerRadius="8"
+                                        Padding="0" BorderColor="#7c3aed" HeightRequest="42">
+                                        <Entry Text="{Binding Descricao}"
+                                           FontSize="14"
+                                           TextColor="White"
+                                           PlaceholderColor="#6060a0"
+                                           Placeholder="Digite a alternativa..."
+                                           BackgroundColor="Transparent"
+                                           Margin="10,0" />
+                                    </Frame>
+
+                                    <!-- Botão Remover -->
+                                    <Frame Grid.Column="3"
+                                           BackgroundColor="#3a0a0a" CornerRadius="8"
+                                           Padding="6,4" BorderColor="Transparent"
+                                           WidthRequest="36" HeightRequest="36">
+                                        <Label Text="X" FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#f87171"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoverOpcaoCommand}"
+                                CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Frame>
+
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <!-- Botão Adicionar Opção -->
+                    <Button Text="+ Adicionar alternativa"
+                            BackgroundColor="Transparent"
+                            BorderColor="#3d3b6e"
+                            BorderWidth="1"
+                            TextColor="#a0a0c0"
+                            CornerRadius="10"
+                            FontSize="14"
+                            HeightRequest="44"
+                            Command="{Binding AdicionarOpcaoCommand}" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botões -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" Margin="0,0,0,20">
+                <Button Grid.Column="0"
+                        Text="✕ Cancelar"
+                        BackgroundColor="Transparent"
+                        BorderColor="#3d3b6e"
+                        BorderWidth="1"
+                        TextColor="#a0a0c0"
+                        CornerRadius="10"
+                        FontSize="13"
+                        HeightRequest="48"
+                        Clicked="OnCancelarClicked" />
+
+                <Button Grid.Column="1"
+                        Text="Finalizar"
+                        BackgroundColor="#3d2b6e"
+                        TextColor="#c084fc"
+                        CornerRadius="10"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        HeightRequest="48"
+                        Command="{Binding FinalizarAtividadeCommand}" />
+
+                <Button Grid.Column="2"
+                        Text="Próxima ▶"
+                        BackgroundColor="#7c3aed"
+                        TextColor="White"
+                        CornerRadius="10"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        HeightRequest="48"
+                        Command="{Binding ProximaQuestaoCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

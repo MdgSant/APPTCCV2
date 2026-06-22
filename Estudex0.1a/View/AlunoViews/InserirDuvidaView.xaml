@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.AlunoViews.InserirDuvidaView"
+             Title="Nova Dúvida"
+             BackgroundColor="#0d0d14">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <!-- Header -->
+            <HorizontalStackLayout Spacing="12">
+                <Frame BackgroundColor="#7c3aed" CornerRadius="20" Padding="0"
+                       WidthRequest="40" HeightRequest="40" HasShadow="False">
+                    <Label Text="✦" FontSize="18" FontAttributes="Bold"
+                           TextColor="White" HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Frame>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                    <Label Text="Nova Dúvida" FontSize="24" FontAttributes="Bold"
+                           TextColor="#c084fc" />
+                    <Label Text="Sua pergunta será respondida em breve"
+                           FontSize="12" TextColor="#a0a0c0" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <BoxView HeightRequest="1" BackgroundColor="#2a2a3d" />
+
+            <!-- Card principal -->
+            <Frame BackgroundColor="#1a1a2e" CornerRadius="18"
+                   Padding="20" BorderColor="#2a2a3d">
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- Título -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="TÍTULO DA DÚVIDA" FontSize="12"
+                               FontAttributes="Bold" TextColor="#c084fc" />
+                        <Frame BackgroundColor="#0d0d14" CornerRadius="12"
+                               Padding="0" BorderColor="#2a2a3d" HeightRequest="50">
+                            <Entry Text="{Binding Titulo}"
+                                   Placeholder="Ex: Como resolver equações do 2º grau?"
+                                   PlaceholderColor="#7070a0"
+                                   TextColor="#e0e0ff"
+                                   FontSize="15"
+                                   BackgroundColor="Transparent"
+                                   Margin="16,0" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Disciplina -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="DISCIPLINA" FontSize="12"
+                               FontAttributes="Bold" TextColor="#c084fc" />
+                        <Frame BackgroundColor="#0d0d14" CornerRadius="12"
+                               Padding="0" BorderColor="#2a2a3d" HeightRequest="50">
+                            <Picker Title="Selecione uma disciplina"
+                                    TitleColor="#7070a0"
+                                    TextColor="#e0e0ff"
+                                    BackgroundColor="Transparent"
+                                    ItemsSource="{Binding ListaDisciplinas}"
+                                    ItemDisplayBinding="{Binding Nome}"
+                                    SelectedItem="{Binding DisciplinaSelecionada}"
+                                    Margin="16,0" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Descrição -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="DESCRIÇÃO DETALHADA" FontSize="12"
+                               FontAttributes="Bold" TextColor="#c084fc" />
+                        <Frame BackgroundColor="#0d0d14" CornerRadius="12"
+                               Padding="16,10" BorderColor="#2a2a3d">
+                            <Editor Text="{Binding Descricao}"
+                                    Placeholder="Descreva sua dúvida em detalhes...&#xa;&#xa;• O que você já tentou?&#xa;• Onde está sua dificuldade?&#xa;• Exemplos relacionados"
+                                    PlaceholderColor="#7070a0"
+                                    TextColor="#e0e0ff"
+                                    FontSize="14"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="160" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botão de envio -->
+            <Button Text="Enviar Dúvida"
+                    BackgroundColor="#7c3aed"
+                    TextColor="White"
+                    CornerRadius="14"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    HeightRequest="54"
+                    Command="{Binding SalvarDuvidaCommand}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding IsBusy}"
+                                 Value="True">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <!-- Loading -->
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               Color="#7c3aed"
+                               HeightRequest="36"/>
+
+            <!-- Mensagem de feedback -->
+            <Frame BackgroundColor="#1a1a2e"
+                   CornerRadius="14"
+                   Padding="16"
+                   IsVisible="{Binding HasMessage}"
+                   BorderColor="#7c3aed">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="{Binding MessageIcon}" FontSize="18"/>
+                    <Label Text="{Binding Message}"
+                           FontSize="13"
+                           TextColor="{Binding MessageColor}"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

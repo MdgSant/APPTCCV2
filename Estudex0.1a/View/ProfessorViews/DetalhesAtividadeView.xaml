@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.ProfessorViews.DetalhesAtividadeView"
+             Title="Detalhes da Atividade"
+             BackgroundColor="#1a1a2e">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="20">
+
+            <!-- Header -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20"
+                   Margin="0,0,0,16" BorderColor="#7c3aed">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="{Binding Atividade.Titulo}"
+                           FontSize="22" FontAttributes="Bold" TextColor="#c084fc" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
+                               FontSize="13" TextColor="#a0a0c0" />
+                        <Label Text="•" TextColor="#3d3b6e" />
+                        <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='⭐ {0} pts'}"
+                               FontSize="13" TextColor="#a0a0c0" />
+                        <Label Text="•" TextColor="#3d3b6e" />
+                        <Label Text="{Binding Atividade.DataCriacao, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                               FontSize="13" TextColor="#a0a0c0" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Lista de Perguntas -->
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Atividade.Perguntas}"
+                                 Spacing="12">
+                <BindableLayout.EmptyView>
+                    <Label Text="Nenhuma pergunta cadastrada."
+                           TextColor="#a0a0c0" HorizontalOptions="Center" />
+                </BindableLayout.EmptyView>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#2d2b55" CornerRadius="14"
+                               Padding="16" BorderColor="#3d3b6e">
+                            <VerticalStackLayout Spacing="12">
+
+                                <Label Text="{Binding Enunciado}"
+                                       FontSize="15" FontAttributes="Bold"
+                                       TextColor="#e0e0ff" />
+
+                                <BoxView HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+
+                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Opcoes}"
+                                                     Spacing="8">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame Padding="12,8" CornerRadius="10"
+                                                   BorderColor="#3d3b6e"
+                                                   BackgroundColor="#1a1a2e">
+
+                                                <Frame.Triggers>
+                                                    <DataTrigger TargetType="Frame"
+                                                                 Binding="{Binding Correta}"
+                                                                 Value="True">
+                                                        <Setter Property="BorderColor" Value="#4ade80" />
+                                                        <Setter Property="BackgroundColor" Value="#0a2a0a" />
+                                                    </DataTrigger>
+                                                </Frame.Triggers>
+
+                                                <HorizontalStackLayout Spacing="10">
+                                                    <Label Text="✓" FontSize="14" TextColor="#4ade80">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding Correta}"
+                                                                         Value="False">
+                                                                <Setter Property="Text" Value="○" />
+                                                                <Setter Property="TextColor" Value="#6060a0" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                    <Label Text="{Binding Descricao}"
+                                                           FontSize="14" TextColor="#e0e0ff"
+                                                           VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="👥 Ver Respostas dos Alunos"
+                BackgroundColor="#3d2b6e"
+                TextColor="#c084fc"
+                CornerRadius="12"
+                FontSize="14"
+                HeightRequest="48"
+                Margin="0,8,0,0"
+                Clicked="OnVerRespostasClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+    </ContentPage>

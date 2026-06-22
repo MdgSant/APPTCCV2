@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Estudex0._1a.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Estudex0._1a.View"
+    xmlns:professor="clr-namespace:Estudex0._1a.View.ProfessorViews"
+    xmlns:aluno="clr-namespace:Estudex0._1a.View.AlunoViews"
+    Title="EstudeX"
+    FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="#1a1a2e">
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Padding="20,40,20,20" Spacing="4" BackgroundColor="#2d2b55">
+            <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                <!-- Imagem do Mascote -->
+                <Image Source="ornitorrinco.png"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       Aspect="AspectFit"/>
+
+                <!-- Texto EstudeX -->
+                <Label Text="EstudeX"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#c084fc"
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <Label x:Name="LabelPerfil"
+                   Text=""
+                   FontSize="12"
+                   TextColor="#a0a0c0" />
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="50" Padding="20,0">
+                <Label Text="{Binding Title}"
+                       FontSize="15"
+                       TextColor="#e0e0ff"
+                       VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <!-- Menu -->
+    <FlyoutItem x:Name="FlyoutMenu" Title="Menu">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:MenuView}"
+        Route="MenuView" />
+    </FlyoutItem>
+
+    <!-- Professor -->
+    <FlyoutItem x:Name="FlyoutProfAtividades" Title="Atividades">
+        <ShellContent
+            ContentTemplate="{DataTemplate professor:AtividadeView}"
+            Route="AtividadeView" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="FlyoutProfDuvidas" Title="Dúvidas">
+        <ShellContent
+            ContentTemplate="{DataTemplate professor:DuvidaView}"
+            Route="DuvidaView" />
+    </FlyoutItem>
+
+    <!-- Aluno -->
+    <FlyoutItem x:Name="FlyoutHome" Title="Home">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:HomeView}"
+        Route="HomeView" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="FlyoutAlunoAtividades" Title="Atividades">
+        <ShellContent
+            ContentTemplate="{DataTemplate aluno:ListagemAtividadeAlunoView}"
+            Route="ListagemAtividadeAlunoView" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="FlyoutAlunoDuvidas" Title="Dúvidas">
+        <ShellContent
+            ContentTemplate="{DataTemplate aluno:ListagemDuvidaAlunoView}"
+            Route="ListagemDuvidasAlunoView" />
+    </FlyoutItem>
+    <FlyoutItem x:Name="FlyoutAlunoRespostas" Title="Minhas Respostas">
+        <ShellContent
+        ContentTemplate="{DataTemplate aluno:MinhasRespostasView}"
+        Route="MinhasRespostasView" />
+    </FlyoutItem>
+
+</Shell>

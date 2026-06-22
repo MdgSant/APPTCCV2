@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.HomeView"
+             BackgroundColor="#1a1a2e">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- Saudação -->
+            <VerticalStackLayout Spacing="2" Margin="0,0,0,8">
+                <Label x:Name="LabelSaudacao"
+                       Text=""
+                       FontSize="16" FontAttributes="Bold"
+                       TextColor="#e0e0ff"/>
+                <Label Text="Veja o que há de novo por aqui"
+                       FontSize="12" TextColor="#7c6aaa"/>
+            </VerticalStackLayout>
+
+            <!-- Card Atividades -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="14" Padding="14" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="0">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Margin="0,0,0,10">
+                        <Frame Grid.Column="0" BackgroundColor="#7c3aed22" CornerRadius="10"
+                               WidthRequest="34" HeightRequest="34" Padding="0" BorderColor="#c084fc44" HasShadow="False">
+                            <Label Text="📋" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                            <Label x:Name="LabelAtividadesTitulo"
+                                   Text="Atividades"
+                                   FontSize="14" FontAttributes="Bold" TextColor="#e0e0ff"/>
+                            <Label x:Name="LabelAtividadesSub"
+                                   Text=""
+                                   FontSize="11" TextColor="#7c6aaa"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#4d3b8e" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAtividadesClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <!-- Itens Atividades -->
+                    <VerticalStackLayout x:Name="ListaAtividades" Spacing="0"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Card Dúvidas -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="14" Padding="14" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="0">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Margin="0,0,0,10">
+                        <Frame Grid.Column="0" BackgroundColor="#185FA522" CornerRadius="10"
+                               WidthRequest="34" HeightRequest="34" Padding="0" BorderColor="#85B7EB44" HasShadow="False">
+                            <Label Text="❓" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Frame>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                            <Label x:Name="LabelDuvidasTitulo"
+                                   Text="Dúvidas"
+                                   FontSize="14" FontAttributes="Bold" TextColor="#e0e0ff"/>
+                            <Label x:Name="LabelDuvidasSub"
+                                   Text=""
+                                   FontSize="11" TextColor="#7c6aaa"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="20" TextColor="#4d3b8e" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDuvidasClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <!-- Itens Dúvidas -->
+                    <VerticalStackLayout x:Name="ListaDuvidas" Spacing="0"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

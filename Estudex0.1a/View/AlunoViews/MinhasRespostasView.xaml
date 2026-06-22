@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.AlunoViews.MinhasRespostasView"
+             Title="Minhas Atividades"
+             BackgroundColor="#1a1a2e">
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="16">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="📋 Minhas Atividades"
+                   FontSize="24" FontAttributes="Bold" TextColor="#c084fc" />
+            <BoxView HeightRequest="1" BackgroundColor="#3d3b6e" Margin="0,8,0,0" />
+        </VerticalStackLayout>
+
+        <!-- Métricas -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Frame Grid.Column="0" BackgroundColor="#2d2b55" CornerRadius="12"
+                   Padding="12" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="✅" FontSize="20" HorizontalOptions="Center" />
+                    <Label Text="Respondidas" FontSize="11" TextColor="#a0a0c0"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding TotalRespondidas}" FontSize="22"
+                           FontAttributes="Bold" TextColor="#c084fc"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Grid.Column="1" BackgroundColor="#2d2b55" CornerRadius="12"
+                   Padding="12" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="📊" FontSize="20" HorizontalOptions="Center" />
+                    <Label Text="Média Geral" FontSize="11" TextColor="#a0a0c0"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding MediaPontuacao, StringFormat='{0:F1}'}"
+                           FontSize="22" FontAttributes="Bold" TextColor="#4ade80"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+        <!-- Lista -->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Respostas}">
+            <CollectionView.EmptyView>
+                <Label Text="Você ainda não respondeu nenhuma atividade."
+                       TextColor="#a0a0c0" HorizontalOptions="Center"
+                       Margin="0,20" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#2d2b55" CornerRadius="14"
+                           Padding="16" BorderColor="#3d3b6e" Margin="0,0,0,12">
+                        <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+
+                            <!-- Título + Pontuação -->
+                            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="{Binding Atividade.Titulo}"
+                                           FontSize="15" FontAttributes="Bold"
+                                           TextColor="#c084fc" />
+                                    <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
+                                           FontSize="12" TextColor="#a0a0c0" />
+                                </VerticalStackLayout>
+
+                                <Frame Grid.Column="1" CornerRadius="10"
+                                       Padding="12,6" BorderColor="Transparent"
+                                       BackgroundColor="#1a3a1a">
+                                    <Label Text="{Binding Pontuacao, StringFormat='⭐ {0:F1}'}"
+                                           FontSize="15" FontAttributes="Bold"
+                                           TextColor="#4ade80" />
+                                </Frame>
+                            </Grid>
+
+                            <BoxView Grid.Row="1" HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+
+                            <!-- Pontuação Máxima + Data -->
+                            <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="{Binding Atividade.PontuacaoMaxima, StringFormat='Máximo: {0} pts'}"
+                                       FontSize="12" TextColor="#a0a0c0" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding MomentoFim, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                                       FontSize="12" TextColor="#a0a0c0" />
+                            </Grid>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
